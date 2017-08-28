@@ -14,6 +14,8 @@ namespace App\Services;
  */
 abstract class AbstractLogistics implements LogisticsInterface
 {
+    use LogTrait;
+
     /**
      *
      * @param array $weights
@@ -41,6 +43,8 @@ abstract class AbstractLogistics implements LogisticsInterface
 
             $amount += $closure($weight);
         }
+
+        $this->writeLog('运费：' . $amount);
 
         return $amount;
     }
