@@ -2,14 +2,16 @@
 declare(strict_types=1);
 
 /**
- * 当 Extract Class 之后，根据 DRY 原则，我们不希望 method 內有重复代码，这会造成日后维护上的困难，
- * 因为每次修改就得修改好几处代码，还可能忘记修改其中一份，而造成逻辑上的不一致。
+ * 虽然我们可以将重复的代码通过 Extract Superclass 重构到 abstract class，
+ * 但有时候会遇到一种代码，并不是整块重复，而是外层重复，內层却不重复。
  *
- * 对 method 內重复的代码，可以使用重构第三式 : Extract Superclass，将重复的程序重构到 abstract class。
+ * 对于 method 內有一段外层重复，內层却不重复的代码，
+ * 可以使用重构第四式 : Extract Closure，
+ * 将重复的代码重构到 abstract class，不重复的部分重构到 closure。
  *
- * 总结：Extract Superclass 让我们将 class 內重复的部分抽出來，
- * 放到 abstract class 的 protected method 內，
- * 如此，继承的 class 就可共用此 method，避免代码重复。
+ * 总结：Extract Closure 让我们将 class 內重复的部分抽出来，放到 abstract class 的 method 內，
+ * 不重复的部分则放在各自 class，以 closure 的方式传入 abstract class，
+ * 如此就可确保代码符合 DRY 原则，且各 class 也保有不重复部分。
  */
 
 namespace App\Services;
@@ -21,7 +23,7 @@ namespace App\Services;
  *
  * @package   ShippingService.php
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.4 2017/8/28 17:20
+ * @version   v0.1.5 2017/8/28 17:26
  */
 class ShippingService
 {

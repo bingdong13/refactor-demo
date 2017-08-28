@@ -26,9 +26,9 @@ class JingDongService extends AbstractLogistics
     {
         $weights = $this->arrayToCollection($weights);
 
-        foreach ($weights as $weight) {
-            $amount = $amount + (80 + $weight * 15);
-        }
+        $amount = $this->loopWeights($amount, $weights, function (int $weight) {
+            return (80 + $weight * 15);
+        });
 
         return $amount;
     }

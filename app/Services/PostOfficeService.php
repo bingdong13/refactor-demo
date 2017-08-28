@@ -26,9 +26,9 @@ class PostOfficeService extends AbstractLogistics
     {
         $weights = $this->arrayToCollection($weights);
 
-        foreach ($weights as $weight) {
-            $amount = $amount + (60 + $weight * 20);
-        }
+        $amount = $this->loopWeights($amount, $weights, function (int $weight) {
+            return (60 + $weight * 20);
+        });
 
         return $amount;
     }

@@ -15,6 +15,7 @@ namespace App\Services;
 abstract class AbstractLogistics
 {
     /**
+     *
      * @param array $weights
      *
      * @return array
@@ -24,5 +25,23 @@ abstract class AbstractLogistics
         $weights = collect($weights);
 
         return $weights;
+    }
+
+    /**
+     *
+     * @param int $amount
+     * @param array $weights
+     * @param callable $closure
+     *
+     * @return int
+     */
+    protected function loopWeights(int $amount, array $weights, callable $closure): int
+    {
+        foreach ($weights as $weight) {
+
+            $amount += $closure($weight);
+        }
+
+        return $amount;
     }
 }

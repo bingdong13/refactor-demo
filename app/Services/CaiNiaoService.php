@@ -26,9 +26,9 @@ class CaiNiaoService extends AbstractLogistics
     {
         $weights = $this->arrayToCollection($weights);
 
-        foreach ($weights as $weight) {
-            $amount = $amount + (100 + $weight * 10);
-        }
+        $amount = $this->loopWeights($amount, $weights, function (int $weight) {
+            return (100 + $weight * 10);
+        });
 
         return $amount;
     }
