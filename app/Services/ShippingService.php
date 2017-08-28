@@ -2,13 +2,10 @@
 declare(strict_types=1);
 
 /**
- * 重构一到六式，教我们的都是以垂直方式将 method 抽取到 class、abstract class、interface，也就是其都有垂直的关系，
- * 但某些 method，并没有垂直的关系，反而是跨 class 的水平关系。
- *
- * 对于这种水平关系的 method，可以使用重构第七式 : Extract Trait，将 method 重构到 trait。
- *
- * 总结：Extract Trait 让我们不用特別将不相关的 method 重构到 class 与 abstract class 內，
- * 所有水平关系的 method，都适合重构到 trait，然后跨 class 重复使用。
+ * Replace Interface with Closure 让我们适时地将不必要的 interface 用 closure 取代，
+ * 可解決 interface 数目及文件数量爆炸的问题，
+ * 但也不是每个 interface 都要重构成 closure，
+ * 必须自己依照实际情形加以判断，沒有最佳解，只有最适解。
  */
 
 namespace App\Services;
@@ -20,7 +17,7 @@ namespace App\Services;
  *
  * @package   ShippingService.php
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.7 2017/8/28 17:45
+ * @version   v0.1.8 2017/8/28 17:50
  */
 class ShippingService
 {
@@ -28,14 +25,15 @@ class ShippingService
      * 计算运费
      *
      * @param array  $weights     重量系列
-     * @param LogisticsInterface $logistics
+     * @param callable $closure
+     * @param Logistics $logistics
      *
      * @return int
      */
-    public function calculateFee(array $weights, LogisticsInterface $logistics): int
+    public function calculateFee(array $weights, Logistics $logistics, callable $closure): int
     {
         $amount = 0;
 
-        return $logistics->calculateFee($weights, $amount);
+        return $logistics->calculateFee($weights, $amount, $closure);
     }
 }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace App\Services;
 
 /**
- * Class AbstractLogistics
+ * Class Logistics
  *
  * TODO
  *
  * @package   App\Services
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.0 2017/8/28 17:21
+ * @version   v0.1.0 2017/8/28 17:50
  */
-abstract class AbstractLogistics implements LogisticsInterface
+class Logistics
 {
     use LogTrait;
 
@@ -31,14 +31,16 @@ abstract class AbstractLogistics implements LogisticsInterface
 
     /**
      *
-     * @param int $amount
      * @param array $weights
+     * @param int $amount
      * @param callable $closure
      *
      * @return int
      */
-    protected function loopWeights(int $amount, array $weights, callable $closure): int
+    public function calculateFee(array $weights, int $amount, callable $closure): int
     {
+        $weights = $this->arrayToCollection($weights);
+
         foreach ($weights as $weight) {
 
             $amount += $closure($weight);
@@ -48,4 +50,5 @@ abstract class AbstractLogistics implements LogisticsInterface
 
         return $amount;
     }
+
 }
