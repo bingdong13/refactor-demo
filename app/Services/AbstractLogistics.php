@@ -12,7 +12,7 @@ namespace App\Services;
  * @author    lvmaohai <lvmaohai@vpgame.cn>
  * @version   v0.1.0 2017/8/28 17:21
  */
-abstract class AbstractLogistics
+abstract class AbstractLogistics implements LogisticsInterface
 {
     /**
      *
