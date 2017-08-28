@@ -2,13 +2,14 @@
 declare(strict_types=1);
 
 /**
- * 面向对象最大的特点就是 class，我們要将相关的 method 放在同一个 class，达到高內聚的目标。
+ * 当 Extract Class 之后，根据 DRY 原则，我们不希望 method 內有重复代码，这会造成日后维护上的困难，
+ * 因为每次修改就得修改好几处代码，还可能忘记修改其中一份，而造成逻辑上的不一致。
  *
- * 在重构第一式：Extract Method 时，我们特別以名词 + 动词的方式替 method 命名，
- * 其中若名词相同，则表示這些 mehtod 的內聚性很高，
- * 适合将这些 method 再通过重构第二式 : Extract Class 重构到新的 class 內。
+ * 对 method 內重复的代码，可以使用重构第三式 : Extract Superclass，将重复的程序重构到 abstract class。
  *
- * Extract Class 让我们将相关的 method 放在同一个 class內，达到高內聚的目标，可增加程序的可读性与可维护性，也更容易重复使用。
+ * 总结：Extract Superclass 让我们将 class 內重复的部分抽出來，
+ * 放到 abstract class 的 protected method 內，
+ * 如此，继承的 class 就可共用此 method，避免代码重复。
  */
 
 namespace App\Services;
@@ -20,7 +21,7 @@ namespace App\Services;
  *
  * @package   ShippingService.php
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.3 2017/8/28 17:12
+ * @version   v0.1.4 2017/8/28 17:20
  */
 class ShippingService
 {

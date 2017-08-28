@@ -12,7 +12,7 @@ namespace App\Services;
  * @author    lvmaohai <lvmaohai@vpgame.cn>
  * @version   v0.1.0 2017/8/28 17:12
  */
-class PostOfficeService
+class PostOfficeService extends AbstractLogistics
 {
     /**
      * 计算邮局运费
@@ -24,7 +24,7 @@ class PostOfficeService
      */
     public function calculateFee(array $weights, int $amount): int
     {
-        $weights = collect($weights);
+        $weights = $this->arrayToCollection($weights);
 
         foreach ($weights as $weight) {
             $amount = $amount + (60 + $weight * 20);
