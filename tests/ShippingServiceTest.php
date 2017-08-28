@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use App\Services\ShippingService;
+use App\Services\CaiNiaoService;
+use App\Services\JingDongService;
+use App\Services\PostOfficeService;
 
 /**
  * Class ShippingServiceTest
@@ -11,7 +14,7 @@ use App\Services\ShippingService;
  *
  * @package   ShippingServiceTest.php
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.0 2017/8/20 15:02
+ * @version   v0.1.1 2017/8/20 17:39
  */
 class ShippingServiceTest extends TestCase
 {
@@ -24,7 +27,9 @@ class ShippingServiceTest extends TestCase
 
         /** act */
         $weights = [1, 2, 3];
-        $actual = $target->calculateFee($weights, 'CaiNiao');
+        $caiNiao = new CaiNiaoService();
+
+        $actual = $target->calculateFee($weights, $caiNiao);
 
         /** assert */
         $expected = 360;
@@ -40,7 +45,9 @@ class ShippingServiceTest extends TestCase
 
         /** act */
         $weights = [1, 2, 3];
-        $actual = $target->calculateFee($weights, 'JingDong');
+        $jingDong = new JingDongService();
+
+        $actual = $target->calculateFee($weights, $jingDong);
 
         /** assert */
         $expected = 330;
@@ -56,7 +63,9 @@ class ShippingServiceTest extends TestCase
 
         /** act */
         $weights = [1, 2, 3];
-        $actual = $target->calculateFee($weights, 'PostOffice');
+        $postOffice = new PostOfficeService();
+
+        $actual = $target->calculateFee($weights, $postOffice);
 
         /** assert */
         $expected = 300;
