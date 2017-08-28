@@ -2,8 +2,10 @@
 declare(strict_types=1);
 
 /**
- * 一开始先求 绿灯 就好，因此我们很无脑的只使用 if else 与 foreach 就完成了
- * 但这样只是功能完成而已，所有高低阶逻辑全写在一起，程序不容易阅读，将来也不好维护。
+ * 改用 switch 写法会比 if else 可读性高些。
+ *
+ * PhpStorm 也提供工具可以直接将 if else 转成 switch，
+ * 按热键 ⌥(option) + ↩(return)，选择 Replace if with switch。
  */
 
 namespace App\Services;
@@ -15,7 +17,7 @@ namespace App\Services;
  *
  * @package   ShippingService.php
  * @author    lvmaohai <lvmaohai@vpgame.cn>
- * @version   v0.1.0 2017/8/28 16:19
+ * @version   v0.1.1 2017/8/28 16:59
  */
 class ShippingService
 {
@@ -31,37 +33,43 @@ class ShippingService
     {
         $amount = 0;
 
-        if ($companyName === 'CaiNiao') {
+        switch ($companyName) {
+            case 'CaiNiao':
 
-            $weights = collect($weights);
+                $weights = collect($weights);
 
-            foreach ($weights as $weight) {
-                $amount = $amount + (100 + $weight * 10);
-            }
+                foreach ($weights as $weight) {
+                    $amount = $amount + (100 + $weight * 10);
+                }
 
-        } elseif ($companyName === 'JingDong') {
+                break;
+            case 'JingDong':
 
-            $weights = collect($weights);
+                $weights = collect($weights);
 
-            foreach ($weights as $weight) {
-                $amount = $amount + (80 + $weight * 15);
-            }
+                foreach ($weights as $weight) {
+                    $amount = $amount + (80 + $weight * 15);
+                }
 
-        } else if ($companyName === 'PostOffice') {
+                break;
+            case 'PostOffice':
 
-            $weights = collect($weights);
+                $weights = collect($weights);
 
-            foreach ($weights as $weight) {
-                $amount = $amount + (60 + $weight * 20);
-            }
+                foreach ($weights as $weight) {
+                    $amount = $amount + (60 + $weight * 20);
+                }
 
-        } else {
+                break;
+            default:
 
-            $weights = collect($weights);
+                $weights = collect($weights);
 
-            foreach ($weights as $weight) {
-                $amount = $amount + (100 + $weight * 10);
-            }
+                foreach ($weights as $weight) {
+                    $amount = $amount + (100 + $weight * 10);
+                }
+
+                break;
         }
 
         return $amount;
